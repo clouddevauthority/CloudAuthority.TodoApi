@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Softveda.Todo.Api.Table</name>
+    </assembly>
+    <members>
+        <member name="M:Softveda.Todo.Api.Table.Controllers.HealthController.GetHealthCheck">
+            <summary>
+            Perform a Health check
+            </summary>
+            <returns>Status code</returns>
+            <response code="200">If the health check is successfull</response>
+            <response code="503">If the health check fails</response>
+        </member>
+        <member name="M:Softveda.Todo.Api.Table.Controllers.TodoItemController.GetTodoItems">
+            <summary>
+            Retreive all Todo items
+            </summary>
+            <remarks>
+            Sample request:
+            
+                GET /Todo
+                
+            </remarks>
+            <returns>Array of Todo items</returns>
+            <response code="200">If the items are returned</response>
+        </member>
+        <member name="M:Softveda.Todo.Api.Table.Controllers.TodoItemController.GetTodoItem(System.String)">
+            <summary>
+            Retreive a specific Todo item
+            </summary>
+            <remarks>
+            Sample request:
+            
+                GET /Todo/6f8c89d7f0824a349e57f7fbb5bab514
+                
+            </remarks>
+            <param name="id" example="6f8c89d7f0824a349e57f7fbb5bab514">id of the Todo item</param>
+            <returns>The Todo item</returns>
+            <response code="200">If the item is returned</response>
+            <response code="404">If the item doesn't exist</response>
+        </member>
+        <member name="M:Softveda.Todo.Api.Table.Controllers.TodoItemController.CreateTodoItem(Softveda.Todo.Shared.Models.TodoItem)">
+            <summary>
+            Create a new Todo item
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /Todo
+                {
+                    "name": "First Task"
+                }
+                
+            </remarks>
+            <param name="todoItem">New Todo item to create</param>
+            <returns>A newly created Todo item</returns>
+            <response code="201">If the newly created Todo item is returned</response>
+            <response code="400">If the item is null or item name is empty</response>
+        </member>
+        <member name="M:Softveda.Todo.Api.Table.Controllers.TodoItemController.UpdateTodoItem(System.String,Softveda.Todo.Shared.Models.TodoItem)">
+            <summary>
+            Updates a specific Todo item
+            </summary>
+            <remarks>
+            Sample request:
+            
+                PUT /Todo
+                {
+                    "isCompleted" : true,
+                    "name": "First Task updated"
+                }
+                
+            </remarks>
+            <param name="id">id of the Todo item</param>
+            <param name="todoItem">Todo item to update</param>
+            <returns>The updated Todo item</returns>
+            <response code="200">If the updated Todo item is returned</response>
+            <response code="400">If the item is null or item name is empty</response>
+            <response code="404">If the item doesn't exist</response>
+        </member>
+        <member name="M:Softveda.Todo.Api.Table.Controllers.TodoItemController.DeleteTodoItem(System.String)">
+            <summary>
+            Deletes a specific Todo item
+            </summary>
+            <remarks>
+            Sample request:
+            
+                DELETE /Todo/6f8c89d7f0824a349e57f7fbb5bab514
+                
+            </remarks>
+            <param name="id">id of the Todo item</param>
+            <returns>Nothing</returns>
+            <response code="204">If the item is deleted</response>
+            <response code="404">If the item doesn't exist</response>
+        </member>
+        <member name="T:Softveda.Todo.Api.Table.Entities.TodoItemEntity">
+            <summary>
+            The azure table storage entity class for a Todo item
+            </summary>
+        </member>
+        <member name="T:Softveda.Todo.Api.Table.Entities.TodoItemMapper">
+            <summary>
+            Provides methods to map from a Todo item table storage entity to model and vice versa
+            </summary>
+        </member>
+        <member name="M:Softveda.Todo.Api.Table.Utils.TableStorageHelper.GetTableReference(System.String,System.String)">
+            <summary>
+            Get a reference to a Azure storage table
+            </summary>
+            <param name="storageConnectionString"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

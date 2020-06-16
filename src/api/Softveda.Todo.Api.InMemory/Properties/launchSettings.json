@@ -12,16 +12,16 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "inMemory/TodoItem",
       "environmentVariables": {
+        "WEBSITE_SITE_NAME": "IISExpress",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Softveda.Todo.Api.InMemory": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "inMemory/TodoItem",
       "environmentVariables": {
+        "WEBSITE_SITE_NAME": "localhost",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

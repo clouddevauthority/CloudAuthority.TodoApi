@@ -1,0 +1,588 @@
+{
+	"info": {
+		"_postman_id": "5e105a89-52b4-4f52-aa7b-bdb66e4b2734",
+		"name": "InMemory Todo API",
+		"description": "An InMemory backed Todo API on \n\nContact Support:\n Name: Pratik Khasnabis\n Email: p**k@outlook.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "in Memory",
+			"item": [
+				{
+					"name": "Todo Item",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Retreive a specific Todo item",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"inMemory",
+												"TodoItem",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) id of the Todo item"
+												}
+											]
+										},
+										"description": "Sample request:\r\n\r\n    GET /Todo/6f8c89d7f0824a349e57f7fbb5bab514"
+									},
+									"response": [
+										{
+											"name": "If the item doesn't exist",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"type\": \"<string>\",\n \"title\": \"<string>\",\n \"status\": \"<integer>\",\n \"detail\": \"<string>\",\n \"instance\": \"<string>\"\n}"
+										},
+										{
+											"name": "If the item is returned",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"id\": \"<string>\",\n \"name\": \"<string>\",\n \"isCompleted\": \"<boolean>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Updates a specific Todo item",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"inMemory",
+												"TodoItem",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) id of the Todo item"
+												}
+											]
+										},
+										"description": "Sample request:\r\n\r\n    PUT /Todo\r\n    {\r\n        \"isCompleted\" : true,\r\n        \"name\": \"First Task updated\"\r\n    }"
+									},
+									"response": [
+										{
+											"name": "If the updated Todo item is returned",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"id\": \"<string>\",\n \"name\": \"<string>\",\n \"isCompleted\": \"<boolean>\"\n}"
+										},
+										{
+											"name": "If the item is null or item name is empty",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"type\": \"<string>\",\n \"title\": \"<string>\",\n \"status\": \"<integer>\",\n \"detail\": \"<string>\",\n \"instance\": \"<string>\"\n}"
+										},
+										{
+											"name": "If the item doesn't exist",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"type\": \"<string>\",\n \"title\": \"<string>\",\n \"status\": \"<integer>\",\n \"detail\": \"<string>\",\n \"instance\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Deletes a specific Todo item",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"inMemory",
+												"TodoItem",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) id of the Todo item"
+												}
+											]
+										},
+										"description": "Sample request:\r\n\r\n    DELETE /Todo/6f8c89d7f0824a349e57f7fbb5bab514"
+									},
+									"response": [
+										{
+											"name": "If the item is deleted",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "If the item doesn't exist",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/inMemory/TodoItem/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"inMemory",
+														"TodoItem",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"type\": \"<string>\",\n \"title\": \"<string>\",\n \"status\": \"<integer>\",\n \"detail\": \"<string>\",\n \"instance\": \"<string>\"\n}"
+										}
+									]
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Retreive all Todo items",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/inMemory/TodoItem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"inMemory",
+										"TodoItem"
+									]
+								},
+								"description": "Sample request:\r\n\r\n    GET /Todo"
+							},
+							"response": [
+								{
+									"name": "If the items are returned",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/inMemory/TodoItem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"inMemory",
+												"TodoItem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"isCompleted\": \"<boolean>\"\n },\n {\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"isCompleted\": \"<boolean>\"\n }\n]"
+								}
+							]
+						},
+						{
+							"name": "Create a new Todo item",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/inMemory/TodoItem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"inMemory",
+										"TodoItem"
+									]
+								},
+								"description": "Sample request:\r\n\r\n    POST /Todo\r\n    {\r\n        \"name\": \"First Task\"\r\n    }"
+							},
+							"response": [
+								{
+									"name": "If the newly created Todo item is returned",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/inMemory/TodoItem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"inMemory",
+												"TodoItem"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"id\": \"<string>\",\n \"name\": \"<string>\",\n \"isCompleted\": \"<boolean>\"\n}"
+								},
+								{
+									"name": "If the item is null or item name is empty",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"isCompleted\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/inMemory/TodoItem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"inMemory",
+												"TodoItem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"type\": \"<string>\",\n \"title\": \"<string>\",\n \"status\": \"<integer>\",\n \"detail\": \"<string>\",\n \"instance\": \"<string>\"\n}"
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Perform a Health check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/inMemory/Health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"inMemory",
+								"Health"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "If the health check is successfull",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/inMemory/Health",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"inMemory",
+										"Health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "baseUrl",
+			"key": "baseUrl",
+			"value": "https://localhost:5001",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
