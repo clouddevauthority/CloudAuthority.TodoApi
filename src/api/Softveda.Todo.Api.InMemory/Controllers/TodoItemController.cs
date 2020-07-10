@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,11 +12,11 @@ using Softveda.Todo.Shared.Models;
 
 namespace Softveda.Todo.Api.InMemory.Controllers
 {
-	[Route("inMemory/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class TodoItemController : ControllerBase
 	{
-		static ConcurrentDictionary<string, TodoItem> _todoItemsCollection 
+		static ConcurrentDictionary<string, TodoItem> _todoItemsCollection
 			= new ConcurrentDictionary<string, TodoItem>();
 
 		private readonly ILogger<TodoItemController> _logger;
@@ -40,6 +43,7 @@ namespace Softveda.Todo.Api.InMemory.Controllers
 		public ActionResult<IEnumerable<TodoItem>> GetTodoItems()
 		{
 			_logger.LogInformation("Getting array of all Todo items");
+
 			var items = _todoItemsCollection.Values;
 			return new OkObjectResult(items);
 		}
@@ -95,7 +99,7 @@ namespace Softveda.Todo.Api.InMemory.Controllers
 		{
 			_logger.LogInformation($"Creating new Todo item");
 
-			if (todoItem == null || string.IsNullOrWhiteSpace(todoItem.Name))
+			if (todoItem is null || string.IsNullOrWhiteSpace(todoItem.Name))
 			{
 				return new BadRequestResult();
 			}
@@ -132,7 +136,9 @@ namespace Softveda.Todo.Api.InMemory.Controllers
 		{
 			_logger.LogInformation($"Updating Todo item, id: {id}");
 
-			if (todoItem == null || id != todoItem.Id || string.IsNullOrWhiteSpace(todoItem.Name))
+			if (todoItem is null || 
+				id != todoItem.Id || 
+				string.IsNullOrWhiteSpace(todoItem.Name))
 			{
 				return new BadRequestResult();
 			}
