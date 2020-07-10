@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Softveda.Todo.Api.InMemory.Controllers
 {
-	[Route("inMemory/[controller]")]
+	[Route("[controller]")]
 	[ApiController]
 	public class HealthController : ControllerBase
 	{
@@ -25,11 +25,11 @@ namespace Softveda.Todo.Api.InMemory.Controllers
 		/// <response code="200">If the health check is successfull</response>
 		[HttpGet(Name = "HealthCheck")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public IActionResult GetHealthCheck()
+		public ActionResult<string> GetHealthCheck()
 		{
 			_logger.LogInformation("Checking Health of Application");
 
-			return new OkResult();
+			return Ok("HealthCheck OK");
 		}
 	}
 }

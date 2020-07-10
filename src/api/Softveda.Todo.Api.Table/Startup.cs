@@ -18,7 +18,7 @@ namespace Softveda.Todo.Api.Table
 {
 	public class Startup
 	{
-    private static readonly string siteName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
+    private static readonly string siteName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")??"localhost";
 
     public Startup(IConfiguration configuration, IHostEnvironment env)
 		{
@@ -89,11 +89,14 @@ namespace Softveda.Todo.Api.Table
       });
 
       app.UseSwagger();
-      app.UseSwaggerUI(c =>
+      if (env.IsDevelopment())
       {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
-        c.RoutePrefix = string.Empty; // To serve the Swagger UI at the app's root 
-      });
+        app.UseSwaggerUI(c =>
+        {
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API Table v1");
+          c.RoutePrefix = string.Empty; // To serve the Swagger UI at the app's root 
+        });
+      }
 
       app.UseHttpsRedirection();
 

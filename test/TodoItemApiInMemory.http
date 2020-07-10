@@ -1,5 +1,6 @@
-@baseUrl = https://localhost:5001/inMemory
-
+# @baseUrl = https://todoapi-inmemory.trafficmanager.net/inMemory
+@baseUrl = https://todoapi-inmemory-pri.azurewebsites.net/inMemory
+#@baseUrl = https://localhost:5001
 ###
 GET {{baseUrl}}/health
 
