@@ -1,0 +1,38 @@
+# @baseUrl = https://todoapi-inmemory.trafficmanager.net/inMemory
+@baseUrl = https://todoapi-inmemory-pri.azurewebsites.net/inMemory
+#@baseUrl = https://localhost:5001
+###
+GET {{baseUrl}}/health
+
+###
+@apiUrl = {{baseUrl}}/TodoItem
+
+###
+# @name createTodoItem
+POST {{apiUrl}}
+content-type: application/json
+
+{
+    "name": "Task {{$randomInt 1 100}}"
+}
+
+###
+@todoId = {{createTodoItem.response.body.$.id}}
+GET {{apiUrl}}/{{todoId}}
+
+###
+@todoName = {{createTodoItem.response.body.$.name}}
+PUT {{apiUrl}}/{{todoId}}
+content-type: application/json
+
+{
+    "id": "{{todoId}}",
+    "name": "{{todoName}} - Updated",
+    "isCompleted": true
+}
+
+###
+GET {{apiUrl}}
+
+###
+DELETE {{apiUrl}}/{{todoId}}

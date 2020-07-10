@@ -348,3 +348,17 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# OpenApi Spec
+**/OpenApi.json
+**/OpenApi.yaml
+
+#publish folder
+/src/**/pub
+
+#certificates
+*.pfx
+*.cer
+*.p12
+*.key
+*.req
