@@ -1,29 +1,23 @@
 # Root CA
-New-SelfSignedCertificate -DnsName "root_ca_dev_damienbod.com", "root_ca_dev_damienbod.com" -CertStoreLocation "cert:\LocalMachine\My" -NotAfter (Get-Date).AddYears(20) -FriendlyName "root_ca_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature
+New-SelfSignedCertificate -DnsName "azure.cloudauthority.dev" -Subject "CN=azure.cloudauthority.dev, O=CloudAuthority, C=AU" -CertStoreLocation "cert:\CurrentUser\My" -NotAfter (Get-Date).AddYears(20) -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature
 
-$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
-Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\root_ca_dev_damienbod.pfx -Password $mypwd
-Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath root_ca_dev_damienbod.crt
+# Open Windows 10 Manage User Certificate in control panel
+# Find and cut the root cert from store "Personal" and paste in to "Trusted Root Certification Authorities"
+
+$rootCertThumbprint = "<get it from certiticate store, certificate details>"
+$certPassword = "p@ssw0rd"
+
+$mypwd = ConvertTo-SecureString -String $certPassword -Force -AsPlainText
+Get-ChildItem -Path cert:\CurrentUser\my\$rootCertThumbprint | Export-PfxCertificate -FilePath root_ca_azure.cloudauthority.dev.pfx -Password $mypwd
+Export-Certificate -Cert cert:\CurrentUser\my\$rootCertThumbprint -FilePath root_ca_azure.cloudauthority.dev.cer
 
 # Child Cert from Root CA
-$rootcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint from the root cert..." )
-New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "child_a_dev_damienbod.com" -Signer $rootcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "child_a_dev_damienbod.com"
-$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
-Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\child_a_dev_damienbod.pfx -Password $mypwd
-Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath child_a_dev_damienbod.crt
+$rootcert = ( Get-ChildItem -Path cert:\CurrentUser\My\$rootCertThumbprint )
 
+New-SelfSignedCertificate -certstorelocation cert:\CurrentUser\my -dnsname "cloudauth-apim.azure-api.net, api.cloudauthority.dev" -Signer $rootcert -NotAfter (Get-Date).AddYears(2) -Subject "CN=cloudauth-apim.azure-api.net, O=CloudAuthority, C=AU" -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.2")
 
-# Intermediate Cert
-$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
-$parentcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint of the root..." )
-New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "intermediate_dev_damienbod.com" -Signer $parentcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "intermediate_dev_damienbod.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature -TextExtension @("2.5.29.19={text}CA=1&pathlength=1")
-Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\intermediate_dev_damienbod.pfx -Password $mypwd
-Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath intermediate_dev_damienbod.crt
+$clientCertThumbprint = "<get it from certiticate store, certificate details>"
 
-# Child Cert from Intermediate Cert
-$parentcert = ( Get-ChildItem -Path cert:\LocalMachine\My\"The thumbprint from the Intermediate certificate..." )
-New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname "child_a_dev_damienbod.com" -Signer $parentcert -NotAfter (Get-Date).AddYears(20) -FriendlyName "child_a_dev_damienbod.com"
-$mypwd = ConvertTo-SecureString -String "1234" -Force -AsPlainText
-Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertificate -FilePath C:\git\AspNetCoreCertificateAuth\Certs\child_a_dev_damienbod.pfx -Password $mypwd
-Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath child_a_dev_damienbod.crt
-
+$mypwd = ConvertTo-SecureString -String $certPassword -Force -AsPlainText
+Get-ChildItem -Path cert:\CurrentUser\my\$clientCertThumbprint | Export-PfxCertificate -FilePath child_ca_cloudauth-apim.azure-api.pfx -Password $mypwd
+Export-Certificate -Cert cert:\CurrentUser\my\$clientCertThumbprint -FilePath child_ca_cloudauth-apim.azure-api.cer

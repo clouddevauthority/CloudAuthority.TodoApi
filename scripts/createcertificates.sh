@@ -18,6 +18,7 @@ openssl pkcs12 -export -out client.pfx -inkey client.key -in client.cer
 # Import client.pfx into the Personal store
 # Import client.cer into the Trusted Root store
 
-openssl req -new -x509 -newkey rsa:2048 -keyout dev-certificate.key -out dev-certificate.cer -days 365 -subj "/CN=localhost/O=cloudauthority"
+# generating development certificate for kestrel
+openssl req -new -x509 -newkey rsa:2048 -keyout dev-certificate.key -out dev-certificate.cer -days 365 -subj "/CN=localhost/O=CloudAuthority/C=AU"
 openssl pkcs12 -export -out dev-certificate.pfx -inkey dev-certificate.key -in dev-certificate.cer
 
