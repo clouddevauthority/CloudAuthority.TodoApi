@@ -47,6 +47,7 @@ namespace Softveda.Todo.Shared.Middleware
 				if (!isValidCert)
 				{
 					_logger.LogWarning("Invalid Certificate: Request Forbidden");
+					context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
 					return;
 				}
 				await _next.Invoke(context);
@@ -70,7 +71,11 @@ namespace Softveda.Todo.Shared.Middleware
 			// and it allows for self signed certificates
 			//
 
-			if (certificate is null) return false;
+			if (certificate is null)
+			{
+				_logger.LogWarning("Invalid Certificate: certificate not present error");
+				return false;
+			}
 
 			var certSubject = certificate.Subject.Trim();
 			var certIssuer = certificate.Issuer.Trim();
@@ -78,16 +83,32 @@ namespace Softveda.Todo.Shared.Middleware
 
 			// 1. Check time validity of certificate
 			if (DateTime.Compare(DateTime.Now, certificate.NotBefore) < 0 ||
-				DateTime.Compare(DateTime.Now, certificate.NotAfter) > 0) return false;
+				DateTime.Compare(DateTime.Now, certificate.NotAfter) > 0)
+			{
+				_logger.LogWarning("Invalid Certificate: time validity error");
+				return false;
+			}
 
 			// 2. Check subject name of certificate
-			if (string.CompareOrdinal(certSubject, _config.Subject) != 0) return false;
+			if (string.CompareOrdinal(certSubject, _config.Subject) != 0)
+			{
+				_logger.LogWarning("Invalid Certificate: subject name error");
+				return false;
+			}
 
 			// 3. Check issuer name of certificate
-			if (string.CompareOrdinal(certIssuer, _config.Issuer) != 0) return false;
+			if (string.CompareOrdinal(certIssuer, _config.Issuer) != 0)
+			{
+				_logger.LogWarning("Invalid Certificate: issuer name error");
+				return false;
+			}
 
 			// 4. Check thumprint of certificate
-			if (string.CompareOrdinal(certThumbprint, _config.ThumbPrint.ToUpperInvariant()) != 0) return false;
+			if (string.CompareOrdinal(certThumbprint, _config.ThumbPrint.ToUpperInvariant()) != 0)
+			{
+				_logger.LogWarning("Invalid Certificate: thumbprint error");
+				return false;
+			}
 
 			return true;
 

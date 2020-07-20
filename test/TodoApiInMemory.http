@@ -1,5 +1,5 @@
-@baseUrl = https://localhost:5001/table
-
+@baseUrl = https://todoapi-inmemory-pri.azurewebsites.net/api
+#@baseUrl = https://localhost:5001
 ###
 GET {{baseUrl}}/health
 
@@ -27,7 +27,7 @@ content-type: application/json
 {
     "id": "{{todoId}}",
     "name": "{{todoName}} - Updated",
-    "isCompleted": false
+    "isCompleted": true
 }
 
 ###
