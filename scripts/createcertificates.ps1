@@ -19,5 +19,5 @@ New-SelfSignedCertificate -certstorelocation cert:\CurrentUser\my -dnsname "clou
 $clientCertThumbprint = "<get it from certiticate store, certificate details>"
 
 $mypwd = ConvertTo-SecureString -String $certPassword -Force -AsPlainText
-Get-ChildItem -Path cert:\CurrentUser\my\$clientCertThumbprint | Export-PfxCertificate -FilePath child_ca_cloudauth-apim.azure-api.pfx -Password $mypwd
-Export-Certificate -Cert cert:\CurrentUser\my\$clientCertThumbprint -FilePath child_ca_cloudauth-apim.azure-api.cer
+Get-ChildItem -Path cert:\CurrentUser\my\$clientCertThumbprint | Export-PfxCertificate -FilePath child_cloudauth-apim.azure-api.pfx -Password $mypwd
+Export-Certificate -Cert cert:\CurrentUser\my\$clientCertThumbprint -FilePath child_cloudauth-apim.azure-api.cer
