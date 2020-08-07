@@ -29,12 +29,12 @@ namespace Softveda.Todo.Api.InMemory
 								logging.AddDebug();
 								logging.AddAzureWebAppDiagnostics();
 							});
-							webBuilder.ConfigureKestrel(o =>
-							{
-								o.ConfigureHttpsDefaults(o =>
-									o.ClientCertificateMode =
-											ClientCertificateMode.RequireCertificate);
-							});
+							//webBuilder.ConfigureKestrel(o =>
+							//{
+							//	o.ConfigureHttpsDefaults(o =>
+							//		o.ClientCertificateMode =
+							//				ClientCertificateMode.RequireCertificate);
+							//});
 						});
 	}
 }

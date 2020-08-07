@@ -36,6 +36,12 @@ namespace Softveda.Todo.Shared.Middleware
 				await _next.Invoke(context);
 				return;
 			}
+			// Skip check if config value is true
+			if (_config.SkipValidation)
+			{
+				await _next.Invoke(context);
+				return;
+			}
 			try
 			{
 				var certHeader = context.Request.Headers[_config.Header];
@@ -103,7 +109,7 @@ namespace Softveda.Todo.Shared.Middleware
 				return false;
 			}
 
-			// 4. Check thumprint of certificate
+			// 4. Check thumbprint of certificate
 			if (string.CompareOrdinal(certThumbprint, _config.ThumbPrint.ToUpperInvariant()) != 0)
 			{
 				_logger.LogWarning("Invalid Certificate: thumbprint error");
